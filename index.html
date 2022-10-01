@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="index.js" defer></script>
+<style>
+    body{
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        width: 100%;
+        /* background: darkgray; */
+    }
+    #takvim{
+        height: 700px;
+        width: 400px;
+        background-color: rgb(77, 76, 76);
+        margin: 0 auto;
+    }
+    #hr{
+        height: 1px;
+        width: 100%;
+        background-color: rgb(107, 107, 107);
+
+    }
+    .fa-angle-up, .fa-angle-down{
+        font-size: 1.5rem;
+    }
+    #ust{
+        padding: 1rem 1.7rem;
+    }
+    #saat{
+        font-size: 3rem;
+        display: block;
+        color: white;
+    }
+    #tarih{
+        display: block;
+        padding-left: 0.2rem;
+        color: rgb(89, 187, 243);
+    }
+    #baslik{
+        display: flex;
+        padding: 0.7rem 2rem;
+        color: rgb(238, 238, 238);
+        align-items: center;
+    }
+    #sag{
+        margin-left: auto;
+        display: flex;
+        gap: 2rem;
+    }
+    #sag > #geri{
+        cursor: pointer;
+    }
+    #sag > #ileri{
+        cursor: pointer;
+    }
+    #grid{
+        display: grid;
+        grid-template-columns: repeat(7,1fr);
+        color: white;
+        padding: 0.5rem 1.7rem;
+        text-align: center;
+        gap: 0.5rem;
+    }
+    .soluk{
+        color: gray;
+    }
+    #grid>div{
+        padding: 0.5rem 0.8rem;
+        cursor: context-menu;
+        position: relative;
+    }
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+            transform: translateY(startYposition);
+        } 
+        100% {
+            opacity: 1;
+            transform: translateY(endYposition);
+        }
+    }
+    .bugun{
+        background: rgb(35, 110, 224);
+        border: 1px solid black;
+    }
+    .bugun::before{
+        content: '';
+        position: absolute;
+        border: 2px solid black;
+        top: -2px;
+        bottom: -2px;
+        left: -2px;
+        right: -2px;
+    }
+    .bugun::after{
+        content: '';
+        position: absolute;
+        border: 2px solid rgb(35, 110, 224);
+        top: -4px;
+        bottom: -4px;
+        left: -4px;
+        right: -4px;
+    }
+    .hoverBorder::before{
+        content: '';
+        border: 2px solid rgb(150, 149, 149);
+        position: absolute;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        top: -2px;
+    }
+    .altYarim::before{
+        content: '';
+        border: 2px solid rgb(99, 99, 99);
+        position: absolute;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        top: -2px;
+        border-bottom: none;
+        border-right-color: rgba(99,99,99,0.2);
+        border-left-color: rgba(99,99,99,0.2);
+    }
+    .ustYarim::before{
+        content: '';
+        border: 2px solid rgb(99, 99, 99);
+        position: absolute;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        top: -2px;
+        border-top: none;
+        border-right-color: rgba(99,99,99,0.2);
+        border-left-color: rgba(99,99,99,0.2);
+    }
+    .sagYarim::before{
+        content: '';
+        border: 2px solid rgb(99, 99, 99);
+        position: absolute;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        top: -2px;
+        border-right: none;
+        border-top-color: rgba(99,99,99,0.2);
+        border-bottom-color: rgba(99,99,99,0.2);
+        
+    }
+    .solYarim::before{
+        content: '';
+        border: 2px solid rgb(99, 99, 99);
+        position: absolute;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        top: -2px;
+        border-left: none;
+        border-top-color: rgba(99,99,99,0.2);
+        border-bottom-color: rgba(99,99,99,0.2);
+    }
+    .sagAltCapraz::before{
+        content: '';
+        border: 2px solid rgb(99, 99, 99);
+        position: absolute;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        top: -2px;
+        border-right: none;
+        border-bottom: none;
+        border-top-color: rgba(99,99,99,0.2);
+        border-left-color: rgba(99,99,99,0.2);
+    }
+    .sagUstCapraz::before{
+        content: '';
+        border: 2px solid rgb(99, 99, 99);
+        position: absolute;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        top: -2px;
+        border-top: none;
+        border-right: none;
+        border-left-color: rgba(99,99,99,0.2);
+        border-bottom-color: rgba(99,99,99,0.2);
+    }
+    .solAltCapraz::before{
+        content: '';
+        border: 2px solid rgb(99, 99, 99);
+        position: absolute;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        top: -2px;
+        border-left: none;
+        border-bottom: none;
+        border-top-color: rgba(99,99,99,0.2);
+        border-right-color: rgba(99,99,99,0.2);
+    }
+    .solUstCapraz::before{
+        content: '';
+        border: 2px solid rgb(99, 99, 99);
+        position: absolute;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        top: -2px;
+        border-left: none;
+        border-top: none;
+        border-right-color: rgba(99,99,99,0.5);
+        border-bottom-color: rgba(99,99,99,0.5);
+    }
+
+</style>
+</head>
+<body>
+    <div id="takvim">
+        <div id="ust">
+            <span id="saat" style="height: 55px;"></span>
+            <span id="tarih">31 Aralık 2021 Cuma -> Degisecek</span>
+        </div>
+        <div id="hr"></div>
+
+
+        <div id="baslik">
+            <div id="sol">Aralik 2021 -> Degisecek</div>
+            <div id="sag">
+                <span id="geri"><i class="fa fa-angle-up"></i></span>
+                <span id="ileri"><i class="fa fa-angle-down"></i></span>
+            </div>
+        </div>
+
+        <div id="grid">
+            
+        </div>
+
+    </div>
+    
+
+</body>
+</html>
+
